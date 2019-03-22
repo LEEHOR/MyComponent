@@ -1,0 +1,98 @@
+ext {
+    //集成开发模式” 和 “组件开发模式” 的切换
+    /*
+    在建好项目之后我们需要给 3 个 module 配置 “集成开发模式” 和 “组件开发模式” 的切换开关，
+    可以在 gradle.properties 文件中定义变量 isModel ，isModel=false 代表是 “集成开发模式” ,
+    isModel=true 代表是 “组件开发模式” （注：每次修改isModel的值后一定要Sysn才会生效）
+     */
+    isApplication = false  //false:作为Lib组件存在， true:作为application存在，这个不建议改
+    android = [
+            compileSdkVersion: 28,
+            buildToolsVersion: "28.0.3",
+            minSdkVersion    : 17,
+            targetSdkVersion : 28,
+            versionCode      : 22,
+            versionName      : "1.0.0"    //必须是int或者float，否则影响线上升级
+    ]
+    //公共依赖的版本控制
+    version = [
+            androidSupportSdkVersion: "28.0.0",
+            constraintLayout        : "1.1.3",
+            //ARouter 跳转路由
+            alibabaArouterApi       : "1.3.1",
+            alibabaArouterCompiler  : "1.1.4",
+            //butterknife
+            butterknife             : "9.0.0-rc2",
+    ]
+
+    dependencies = [
+            //support
+            "appcompat-v7"          : "com.android.support:appcompat-v7:${version["androidSupportSdkVersion"]}",
+            "design"                : "com.android.support:design:${version["androidSupportSdkVersion"]}",
+            "palette"               : "com.android.support:palette-v7:${version["androidSupportSdkVersion"]}",
+            "support-v4"            : "com.android.support:support-v4:${version["androidSupportSdkVersion"]}",
+            "cardview-v7"           : "com.android.support:cardview-v7:${version["androidSupportSdkVersion"]}",
+            "annotations"           : "com.android.support:support-annotations:${version["androidSupportSdkVersion"]}",
+            "recyclerview-v7"       : "com.android.support:recyclerview-v7:${version["androidSupportSdkVersion"]}",
+            "constraint-layout"     : "com.android.support.constraint:constraint-layout:${version["constraintLayout"]}",
+            "percent"               : "com.android.support:percent:${version["androidSupportSdkVersion"]}",
+            "multidex"              : "com.android.support:multidex:1.0.2",
+
+            //dagger2
+            "dagger"                : 'com.google.dagger:dagger:2.16',
+            "dagger-compiler"       : 'com.google.dagger:dagger-compiler:2.16',
+            //retrofit
+            "retrofit"              : 'com.squareup.retrofit2:retrofit:2.4.0',
+            "converter-gson"        : 'com.squareup.retrofit2:converter-gson:2.4.0',
+            "adapter-rxjava2"       : 'com.squareup.retrofit2:adapter-rxjava2:2.4.0',
+            //rxjava
+            "rxjava"                : 'io.reactivex.rxjava2:rxjava:2.1.11',
+            "rxandroid"             : 'io.reactivex.rxjava2:rxandroid:2.0.2',
+            "rxbinding"             : 'com.jakewharton.rxbinding2:rxbinding:2.1.1',
+            //logging-interceptor
+            "logging-interceptor"   : 'com.squareup.okhttp3:logging-interceptor:3.4.1',
+            //utils工具类
+            "utilcode"              : 'com.blankj:utilcode:1.9.6',
+            //log框架，可指定logcat窗口，标红鲜艳
+            "klog-library"          : 'com.github.zhaokaiqiang.klog:library:1.5.0',
+            //banner
+            "banner"                : 'com.youth.banner:banner:1.4.10',
+            //图片缩放
+            "photoview:library"     : 'com.github.chrisbanes.photoview:library:1.2.3',
+            "android-gif-drawable"  : 'pl.droidsonroids.gif:android-gif-drawable:1.2.15',
+            //eventbus
+            "eventbus"              : 'org.greenrobot:eventbus:3.1.1',
+            //阿里巴巴多布局
+            "vlayout"               : 'com.alibaba.android:vlayout:1.2.2@aar',
+            //动态申请权限
+            "permission"            : 'com.yanzhenjie:permission:2.0.0-rc12',
+            //图片选择
+            "rxgalleryfinal:library": 'cn.finalteam.rxgalleryfinal:library:1.1.3',
+            //butterknife
+            "butterknife"           : "com.jakewharton:butterknife:${version["butterknife"]}",
+            "butterknife-compiler"  : "com.jakewharton:butterknife-compiler:${version["butterknife"]}",
+            //ARouter 跳转路由
+            "arouter-api"           : "com.alibaba:arouter-api:${version["alibabaArouterApi"]}",
+            "arouter-compiler"      : "com.alibaba:arouter-compiler:${version["alibabaArouterCompiler"]}",
+            //RxLifecycle
+            "rxlifecycle"           : 'com.trello.rxlifecycle2:rxlifecycle:2.2.1',
+            "rxlifecycle-components": 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1',
+            //内存泄漏检测
+            "canary-debug"          : 'com.squareup.leakcanary:leakcanary-android:1.6.1',
+            "canary-release"        : 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.1',
+    ]
+}
+
+/*黄油刀(butterknife)的使用
+ *Step1.
+ *       在project的build.gradle中导入butterknife插件 :
+ *       classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.1'
+ * Step2.
+ *       在library的build.gradle加上butterknife  依赖：
+ *       api 'com.jakewharton:butterknife:8.8.1'
+ *  Step3.
+ *       1）.在modle的build.gradle加上butterknife解析器  依赖：
+ *      annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+ *      2）.在modle的build.gradle顶部加入
+ *      apply plugin: 'com.jakewharton.butterknife'
+* */
